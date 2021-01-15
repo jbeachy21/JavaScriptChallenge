@@ -1,11 +1,12 @@
 // from data.js
-var tableData = data;
+
 
 
 function populateTable() {
+    var tableData = data;
     var size = tableData.length;
 
-
+    var x = tableData.map( data => data);
  
  
     var tbody = d3.select("tbody");
@@ -28,11 +29,11 @@ for (var i = 0; i<size; i++) {
     tr.append("td").text(tableData[i].comments);    
     }
 
-
+     
 }
 
-populateTable();
-
+var sightings = populateTable();
+ 
 
 
 var filterButton = d3.select("#filter-btn");
@@ -41,63 +42,68 @@ var filterButton = d3.select("#filter-btn");
 filterButton.on("click", function() {
     
      
-     
-    var date = document.getElementById("datetime").value;
+    
+    
+    console.log(typeof date);
     // var date = d3.select("#datetime").node().value; 
     // console.log(date);
-    var rows = [{}];
+    
+    
+    // console.log(typeof tbody);
+    // tbody.map(element => console.log(element));
+
+    // var text =  document.getElementById("row0").innerText;
+    // text = text.slice(0,9);
+    // console.log(text.trim());
+    // var length1 = text.length;
+    // console.log("string length is " + length1);
+
+
+    // var text2 = document.getElementById("row90").innerText;
+    // text2 = text2.slice(0,9);
+    // console.log(text2.trim());
+    // var length2 = text2.length;
+    // console.log("string length is " + length2); 
+    
+    //  console.log(typeof Date.parse(date));
+    var a = 0;
+    var datasize = data.length;
+    var date = document.getElementById("datetime").value;
+
+    date = Date.parse(date);
+
     var table = document.getElementById("ufo-table");
     var tbody = document.getElementById("ufo-tbody");
-    for (var i = 0, row; row = table.rows[i]; i++) {
-        // console.log(row);
-        for (var j = 0, col; col = row.cells[j]; j++) {
-            // console.log(col.innerText);
-            // catches the date and check if the date is the same as the input
-            if (j % 7 === 0 && date !== col.innerText) {
+     
+    var index, currentRow, currentDate, htmlRow;
+    for (var i = 0; i<datasize; i++) {
+        console.log("a = " + a);
+        a++;
+        
+        index = "row" + i;
+        currentRow = document.getElementById(index).innerText;
+        currentDate = currentRow.slice(0,9);
+        currentDate = currentDate.trim();
+ 
+        currentDate = Date.parse(currentDate);
+
+         
+        console.log(date === currentDate);
+        console.log("row#: " + i)
+            if (date !== currentDate) {
                 
-                // console.log(document.getElementById("row"+i))
-                d3.select(row).remove(row);
-                // debugger;
-            }
+                console.log("row to be removed is #" + index + " date is: " + currentDate);
+                console.log(htmlRow);
+                htmlRow = document.getElementById(index);
+                htmlRow.remove();
+            }  
+        
             
-            
-      
-   }  
 }
-// console.log(rows);
-// document.getElementById("ufo-tbody").remove();
-// var tbody = document.createElement("tbody");
-// document.appendChild(tbody);
-// tbody.appendChild(rows);
      
   });
 
 
-function test() {
-    // var row1 = document.getElementById("row1");
-    // var tbl = document.getElementById("table"); // Get the table
-    // tbl.removeChild(document.getElementsByTagName("tbody")[0]);
-
-    // document.getElementById("row1").remove(); 
-    // console.log(row1);
-
-
-
-
-
-    // document.getElementById("ufo-table").remove();
-    // var tbody = document.getElementById("ufo-tbody");
-    // console.log(table);
-    // console.log(tbody);
-    // var table = d3.select("#ufo-table").remove();
-    // var table = d3.select("#ufo-table");
-    // var tbody = d3.select("#ufo-tbody");
-    // console.log(tbody.length);
-
-
-  
-
-
-}
+ 
  
 
